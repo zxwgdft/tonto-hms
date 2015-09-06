@@ -1,57 +1,41 @@
-$.modal("house",function(){
-	var house={
+$.modal("customer",function(){
+	var customer={
 		currentPage:1,
+		pageSize:20,
+		searchUrl:"",
 		searchDto:{}		
 	}
-	
-	house.loupanSearchSelector=new tonto.loupan.Selector("#selectLoupanToSearchBtn",{allBtn:true,showBtn:true});
-	house.loupanSearchSelector.addEventListener("checked",function(item){
-		house.searchDto.loupanId=item.id;
-	});
-	house.searchDistrict = new tonto.district.District("#selectDistrictToSearchBtn",{single:false,showBtn:true});
-	house.searchDistrict.addEventListener("checked", function(obj) {			
-		house.searchDto.districtId=obj.key==-1?undefined:obj.key;
-	});		
 	
 	$("#updateModal").on("hidden.bs.modal", function() {
 	    $(this).removeData("bs.modal");
 	});
 	
 	
-	$("#searchTypeSelect").on("change",function(){
-		if($("#searchTypeSelect").val()=="选择地区")
-		{
-			$("#searchDistrictDiv").show();
-			$("#searchLoupanDiv").hide();	
+	$("#whoseCustomerSelect").on("change",function(){
+		if($("#whoseCustomerSelect").val()=="自己的客户")
+		{			
+			customer.searchUrl="customer/self/page/";
 		}
 		else
 		{
-			$("#searchDistrictDiv").hide();
-			$("#searchLoupanDiv").show();	
+			customer.searchUrl="customer/all/page/";
 		}
 	});
-	$("#searchTypeSelect").change();
+	
+	$("#whoseCustomerSelect").change();
 	
 	
-	$("#searchHouseBtn").on("click",function(){
-		
-		if($("#searchTypeSelect").val()=="选择地区")
-		{
-			house.searchDto.loupanId=undefined;
-		}
-		else
-		{
-			house.searchDto.districtId=undefined;
-		}
-		house.skip(1);
+	$("#searchCustomerBtn").on("click",function(){
+		customer.skip(1);
 	});
 	
-	house.skip=function(pageNo) {
-		house.currentPage = pageNo;
-		$("#listDiv").loadContent("house/page/" + pageNo,house.searchDto);
+	customer.skip=function(pageNo) {
+		customer.currentPage = pageNo;
+		$("#listDiv").loadContent(customer.searchUrl + customer.pageSize+"/" + pageNo,customer.searchDto);
 	}
-	
-	$("#addHouseBtn").on("click",function(){
+	//----------------------
+	//这
+	$("#addCustomerBtn").on("click",function(){
 		$("#addModal").modal({
 			backdrop:"static",
 			show:true,

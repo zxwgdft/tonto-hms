@@ -4,7 +4,7 @@ public class JsonResponse<T> {
 	
 	
 	private int status;
-	private String msg;
+	private String message;
 	private T result;
 	
 	public JsonResponse()
@@ -20,22 +20,22 @@ public class JsonResponse<T> {
 	{
 		this.status=status;
 		this.result=result;
-		this.msg=msg;
+		this.message=msg;
 	}
-	
-	
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
 	public int getStatus() {
 		return status;
 	}
 	public void setStatus(int status) {
 		this.status = status;
 	}
-	public String getMsg() {
-		return msg;
-	}
-	public void setMsg(String msg) {
-		this.msg = msg;
-	}
+
 	public T getResult() {
 		return result;
 	}
@@ -61,6 +61,14 @@ public class JsonResponse<T> {
 	{
 		return new JsonResponse<Object>(Response.STATUS_NO_LOGIN,null,msg);
 	}
+	public static JsonResponse<?> getNoPermissionResponse()
+	{
+		return new JsonResponse<Object>(Response.STATUS_NO_PERMISSION);
+	}
+	public static JsonResponse<?> getNoPermissionResponse(String msg)
+	{
+		return new JsonResponse<Object>(Response.STATUS_NO_PERMISSION,null,msg);
+	}
 	public static JsonResponse<?> getErrorResponse()
 	{
 		return new JsonResponse<Object>(Response.STATUS_ERROR);
@@ -69,6 +77,15 @@ public class JsonResponse<T> {
 	{
 		return new JsonResponse<Object>(Response.STATUS_ERROR,null,msg);
 	}
+	public static JsonResponse<?> getFailResponse()
+	{
+		return new JsonResponse<Object>(Response.STATUS_FAIL);
+	}
+	public static JsonResponse<?> getFailResponse(String msg)
+	{
+		return new JsonResponse<Object>(Response.STATUS_FAIL,null,msg);
+	}
+	
 	
 
 	

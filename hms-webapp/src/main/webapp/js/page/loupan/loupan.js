@@ -47,10 +47,6 @@ $.modal("loupan",function(){
 				$("#addModal").modal("hide");
 				loupan.skip(loupan.currentPage);
 			});			
-		},function(response){
-			var msg="保存出错！";
-			msg+=response&&response.msg||"";
-			$.alertError(msg);
 		});
 	}
 		
@@ -69,10 +65,6 @@ $.modal("loupan",function(){
 				$("#updateModal").modal("hide");
 				loupan.skip(loupan.currentPage);
 			});			
-		},function(response){
-			var msg="保存出错！";
-			msg+=response&&response.msg||"";
-			$.alertError(msg);
 		});
 	}
 	
@@ -80,22 +72,13 @@ $.modal("loupan",function(){
 		$.alertConfirm("确定删除？",function(result){
 			if(result)
 			{
-				$.get("loupan/delete/ajax/" + id, function(response) {
-				response = response && JSON.parse(response);
-				if (response) {
-						if (response.status == -1) {
-							$.alertError("删除出错！" + response.msg);
-							return;
-						}
-	
-						if (response.status == 1) {
-							$.alertSuccess("删除成功!",function(){
-								skip(currentPage);
-							});						
-							return;
-						}
+				$.getRequest("loupan/delete/ajax/" + id, function(response) {
+					if (response.status == 1) {
+						$.alertSuccess("删除成功!",function(){
+							loupan.skip(loupan.currentPage);
+						});						
+						return;
 					}
-					$.alertError("处理异常！");
 				});
 			}
 		});
