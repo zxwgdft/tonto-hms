@@ -1,6 +1,6 @@
 package com.tonto.hms.model;
 
-public class Permission {
+public class AcPermission extends BaseModel{
     private Integer id;
 
     private String permissionName;

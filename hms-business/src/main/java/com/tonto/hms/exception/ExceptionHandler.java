@@ -16,12 +16,11 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver;
 
-import com.tonto.hms.web.control.Response;
+import com.tonto.hms.util.WebUtil;
+import com.tonto.hms.web.control.JsonResponse;
 
 public class ExceptionHandler extends ExceptionHandlerExceptionResolver{
 	
-	private String errorJson="{\"status\":"+Response.STATUS_ERROR+",\"msg\":\"?\"}";
-
 	private String defaultErrorView;  
 	  
     public String getDefaultErrorView() {  
@@ -68,9 +67,9 @@ public class ExceptionHandler extends ExceptionHandlerExceptionResolver{
 					}
 				}
 
-				response.setContentType("application/json; charset=utf-8");
-				response.setCharacterEncoding("utf-8");
-				response.getWriter().write(errorJson.replace("?",ex.getMessage()));
+				WebUtil.sendJson((HttpServletResponse) response,
+						JsonResponse.getErrorResponse(ex.getMessage()));
+				
 				return new ModelAndView();
 			} catch (Exception e) {
 			}

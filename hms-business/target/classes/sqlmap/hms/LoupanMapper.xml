@@ -39,7 +39,7 @@
 	</delete>
 	<insert id="insert" parameterType="com.tonto.hms.model.Loupan">
 		<selectKey resultType="java.lang.Integer" keyProperty="id"
-			order="BEFORE">
+			order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 		insert into loupan (district_code, district1,
@@ -52,12 +52,11 @@
 	</insert>
 	<insert id="insertSelective" parameterType="com.tonto.hms.model.Loupan">
 		<selectKey resultType="java.lang.Integer" keyProperty="id"
-			order="BEFORE">
+			order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 		insert into loupan
 		<trim prefix="(" suffix=")" suffixOverrides=",">
-			id,
 			<if test="districtCode != null">
 				district_code,
 			</if>
@@ -81,7 +80,6 @@
 			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			#{id,jdbcType=INTEGER},
 			<if test="districtCode != null">
 				#{districtCode,jdbcType=INTEGER},
 			</if>

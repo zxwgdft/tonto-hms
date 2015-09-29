@@ -22,21 +22,22 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.tonto.hms.model.Trace" >
-    <selectKey resultType="java.lang.Integer" keyProperty="id" order="BEFORE" >
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into trace (id, content, trace_time, 
+   <selectKey resultType="java.lang.Integer" keyProperty="id"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+    insert into trace (content, trace_time, 
       user_id, house_id)
-    values (#{id,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{traceTime,jdbcType=TIMESTAMP}, 
+    values (#{content,jdbcType=VARCHAR}, #{traceTime,jdbcType=TIMESTAMP}, 
       #{userId,jdbcType=INTEGER}, #{houseId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.tonto.hms.model.Trace" >
-    <selectKey resultType="java.lang.Integer" keyProperty="id" order="BEFORE" >
-      SELECT LAST_INSERT_ID()
-    </selectKey>
+    <selectKey resultType="java.lang.Integer" keyProperty="id"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
     insert into trace
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      id,
       <if test="content != null" >
         content,
       </if>
@@ -51,7 +52,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      #{id,jdbcType=INTEGER},
       <if test="content != null" >
         #{content,jdbcType=VARCHAR},
       </if>

@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.tonto.hms.dao.PermissionDao" >
-  <resultMap id="BaseResultMap" type="com.tonto.hms.model.Permission" >
+  <resultMap id="BaseResultMap" type="com.tonto.hms.model.AcPermission" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="permission_name" property="permissionName" jdbcType="VARCHAR" />
     <result column="permission_desc" property="permissionDesc" jdbcType="VARCHAR" />
     <result column="definition" property="definition" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, permission_name, permission_desc, definition
+    id, permission_name, permission_desc, definition, status
   </sql>
+   <select id="findAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from permission
+  </select>
+  
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -20,22 +27,23 @@
     delete from permission
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.tonto.hms.model.Permission" >
-    <selectKey resultType="java.lang.Integer" keyProperty="id" order="BEFORE" >
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into permission (id, permission_name, permission_desc, 
+  <insert id="insert" parameterType="com.tonto.hms.model.AcPermission" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+    insert into permission (permission_name, permission_desc, 
       definition)
-    values (#{id,jdbcType=INTEGER}, #{permissionName,jdbcType=VARCHAR}, #{permissionDesc,jdbcType=VARCHAR}, 
+    values (#{permissionName,jdbcType=VARCHAR}, #{permissionDesc,jdbcType=VARCHAR}, 
       #{definition,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.tonto.hms.model.Permission" >
-    <selectKey resultType="java.lang.Integer" keyProperty="id" order="BEFORE" >
-      SELECT LAST_INSERT_ID()
-    </selectKey>
+  <insert id="insertSelective" parameterType="com.tonto.hms.model.AcPermission" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
     insert into permission
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      id,
       <if test="permissionName != null" >
         permission_name,
       </if>
@@ -44,6 +52,9 @@
       </if>
       <if test="definition != null" >
         definition,
+      </if>
+      <if test="status != null" >
+        status,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -57,9 +68,12 @@
       <if test="definition != null" >
         #{definition,jdbcType=VARCHAR},
       </if>
+       <if test="status != null" >
+        #{status},
+      </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tonto.hms.model.Permission" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.tonto.hms.model.AcPermission" >
     update permission
     <set >
       <if test="permissionName != null" >
@@ -71,14 +85,18 @@
       <if test="definition != null" >
         definition = #{definition,jdbcType=VARCHAR},
       </if>
+      <if test="status != null" >
+        status=#{status},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tonto.hms.model.Permission" >
+  <update id="updateByPrimaryKey" parameterType="com.tonto.hms.model.AcPermission" >
     update permission
     set permission_name = #{permissionName,jdbcType=VARCHAR},
       permission_desc = #{permissionDesc,jdbcType=VARCHAR},
-      definition = #{definition,jdbcType=VARCHAR}
+      definition = #{definition,jdbcType=VARCHAR},
+      status=#{status}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

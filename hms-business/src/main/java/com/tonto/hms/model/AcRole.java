@@ -1,6 +1,6 @@
 package com.tonto.hms.model;
 
-public class Role {
+public class AcRole extends BaseModel{
     private Integer id;
 
     private String roleName;
@@ -8,7 +8,7 @@ public class Role {
     private String roleDesc;
 
     private String permissions;
-
+    
     public Integer getId() {
         return id;
     }
@@ -40,4 +40,9 @@ public class Role {
     public void setPermissions(String permissions) {
         this.permissions = permissions == null ? null : permissions.trim();
     }
+    
+    
+    
+   
+	
 }

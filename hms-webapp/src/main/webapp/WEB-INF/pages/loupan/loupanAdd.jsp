@@ -5,7 +5,7 @@
 	<h4 class="modal-title">添加楼盘</h4>
 </div>
 <div class="modal-body">
-	<form id="addForm" action="loupan/add/ajax" method="post"
+	<form id="addForm" action="loupan/add/ajax" method="post" accept-charset="UTF-8"
 		class="form-horizontal" role="form">
 		<div class="form-group">
 			<label for="loupanName" class="col-sm-3 control-label">楼盘名称</label>
@@ -36,12 +36,12 @@
 		data-dismiss="modal">关闭</button>		
 </div>
 <script type="text/javascript">
-var loupan=$.modal("loupan");						
+var loupan=$.model("loupan");						
 loupan.addDistrict = new tonto.district.District("#selectDistrictBtn");
 loupan.addDistrict.addEventListener("checked", function(obj){
 	$("#addDistrictCode").val(obj.key);
 });
-$("#saveLoupanBtn").on("click",loupan.saveLoupan);
+$("#saveLoupanBtn").on("click",loupan.saveAdd);
 $("#addForm").createFormValidate({
 	messages:{
 		districtCode:{

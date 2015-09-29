@@ -1,4 +1,4 @@
-$.modal("main",function(){
+$.model("main",function(){
 	var main={
 			
 	}

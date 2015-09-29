@@ -1,17 +1,12 @@
 package com.tonto.hms.dao;
 
-import com.tonto.hms.model.Permission;
+import java.util.List;
 
-public interface PermissionDao {
-    int deleteByPrimaryKey(Integer id);
+import com.tonto.hms.dao.base.BaseDao;
+import com.tonto.hms.model.AcPermission;
 
-    int insert(Permission record);
+public interface PermissionDao extends BaseDao<Integer,AcPermission>{
+    
+    List<AcPermission> findAll();
 
-    int insertSelective(Permission record);
-
-    Permission selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(Permission record);
-
-    int updateByPrimaryKey(Permission record);
 }

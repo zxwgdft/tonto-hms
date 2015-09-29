@@ -6,12 +6,9 @@
 		class="form-horizontal" role="form">
 			<div class="row">
 				<div class="col-md-3">
-			     	<select id="whoseCustomerSelect" class="selectpicker">
-						<option>自己的客户</option>
-						<option>所有的客户</option>
-					</select>
+			  
 			    </div>
-				<div id="searchDistrictDiv" class="col-md-5">
+				<div class="col-md-5">
 				</div>
 				
 				<div class="col-md-2">

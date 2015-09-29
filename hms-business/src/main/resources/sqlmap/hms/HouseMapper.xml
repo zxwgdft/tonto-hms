@@ -46,7 +46,7 @@
 		select h.id, h.house_name, h.householder_name, h.householder_phone, h.householder_cellphone, h.loupan_id, l.loupan_Name, l.district_code
 		from house h,loupan l WHERE h.loupan_id=l.id
 		<if test="loupanId!= null">AND h.loupan_id =#{loupanId}</if>
-		<if test="districtLevel!= null">AND l.district${districtLevel} =#{districtCode}</if>
+		<if test="districtCode!= null">AND l.district${districtLevel} =#{districtCode}</if>
   </select>
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -62,9 +62,10 @@
   </delete>
   
   <insert id="insert" parameterType="com.tonto.hms.model.House" >
-    <selectKey resultType="java.lang.Integer" keyProperty="id" order="BEFORE" >
-      SELECT LAST_INSERT_ID()
-    </selectKey>
+  <selectKey resultType="java.lang.Integer" keyProperty="id"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
     insert into house (house_name, householder_name, 
       householder_phone, householder_cellphone, 
       loupan_id)
@@ -74,12 +75,12 @@
   </insert>
   
   <insert id="insertSelective" parameterType="com.tonto.hms.model.House" >
-    <selectKey resultType="java.lang.Integer" keyProperty="id" order="BEFORE" >
-      SELECT LAST_INSERT_ID()
-    </selectKey>
+  <selectKey resultType="java.lang.Integer" keyProperty="id"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
     insert into house
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      id,
       <if test="houseName != null" >
         house_name,
       </if>
@@ -97,7 +98,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      #{id,jdbcType=INTEGER},
       <if test="houseName != null" >
         #{houseName,jdbcType=VARCHAR},
       </if>

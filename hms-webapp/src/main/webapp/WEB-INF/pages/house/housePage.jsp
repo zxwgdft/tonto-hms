@@ -29,29 +29,20 @@ request.setAttribute("path", path);
 							<label class="col-md-2">楼盘名称:</label>
 							<label class="col-md-3">${house.loupanName}</label>
 					</div>
-					<p align="right"><a href="javascript:updateHouse(${house.id})">修改</a> 
-					<a style="margin-left:10px" href="javascript:deleteHouse(${house.id})">删除</a></p>			
+					<p align="right"><a href="javascript:house.update(${house.id})">修改</a> 
+					<a style="margin-left:10px" href="javascript:house.remove(${house.id})">删除</a></p>			
 				</div>				
 			</div>
 		</c:forEach>
 		
 		<div align="center" id="housePager"></div>
 		<script type="text/javascript">
-				var house=$.modal("house");
-				function updateHouse(id){
-					house.updateHouse(id);
-				}
-				function deleteHouse(id){
-					house.deleteHouse(id);
-				}
-				function skip(page){
-					house.skip(page);
-				}
+				var house=$.model("house");
 			 	house.page_options = {
 		            	currentPage: ${pager.pageNum},
 		            	totalPages: ${pager.pages},
 		            	pageUrl: function(type, page, current){               
-		            		return "javascript:skip("+page+")";
+		            		return "javascript:house.skip("+page+")";
 		            	}
 		        }
 				$("#housePager").bootstrapPaginator(house.page_options);

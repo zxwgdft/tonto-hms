@@ -1,17 +1,10 @@
 package com.tonto.hms.dao;
 
+import java.util.List;
+
+import com.tonto.hms.dao.base.BaseDao;
 import com.tonto.hms.model.Customer;
 
-public interface CustomerDao {
-    int deleteByPrimaryKey(Integer id);
-
-    int insert(Customer record);
-
-    int insertSelective(Customer record);
-
-    Customer selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(Customer record);
-
-    int updateByPrimaryKey(Customer record);
+public interface CustomerDao extends BaseDao<Integer,Customer>{   
+    List<Customer> searchAll(Customer customer);
 }

@@ -61,7 +61,7 @@
 			success : function(response) {
 				response = $.toJsonObject(response);
 				if (response && response.status == 1) {
-					window.location.href = "success";
+					window.location.href = "main";
 					return;
 				} else {
 					var msg = response && response.msg || "登录失败";

@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.tonto.hms.dao.RoleDao" >
-  <resultMap id="BaseResultMap" type="com.tonto.hms.model.Role" >
+  <resultMap id="BaseResultMap" type="com.tonto.hms.model.AcRole" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="role_name" property="roleName" jdbcType="VARCHAR" />
     <result column="role_desc" property="roleDesc" jdbcType="VARCHAR" />
     <result column="permissions" property="permissions" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, role_name, role_desc, permissions
+    id, role_name, role_desc, permissions, status
   </sql>
+  
+   <select id="findAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from role
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -20,22 +27,23 @@
     delete from role
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.tonto.hms.model.Role" >
-    <selectKey resultType="java.lang.Integer" keyProperty="id" order="BEFORE" >
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into role (id, role_name, role_desc, 
+  <insert id="insert" parameterType="com.tonto.hms.model.AcRole" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+    insert into role (role_name, role_desc, 
       permissions)
-    values (#{id,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, #{roleDesc,jdbcType=VARCHAR}, 
+    values (#{roleName,jdbcType=VARCHAR}, #{roleDesc,jdbcType=VARCHAR}, 
       #{permissions,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.tonto.hms.model.Role" >
-    <selectKey resultType="java.lang.Integer" keyProperty="id" order="BEFORE" >
-      SELECT LAST_INSERT_ID()
-    </selectKey>
+  <insert id="insertSelective" parameterType="com.tonto.hms.model.AcRole" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
     insert into role
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      id,
       <if test="roleName != null" >
         role_name,
       </if>
@@ -47,7 +55,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      #{id,jdbcType=INTEGER},
       <if test="roleName != null" >
         #{roleName,jdbcType=VARCHAR},
       </if>
@@ -59,7 +66,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tonto.hms.model.Role" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.tonto.hms.model.AcRole" >
     update role
     <set >
       <if test="roleName != null" >
@@ -71,13 +78,17 @@
       <if test="permissions != null" >
         permissions = #{permissions,jdbcType=VARCHAR},
       </if>
+      <if test="status != null" >
+        status = #{status},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tonto.hms.model.Role" >
+  <update id="updateByPrimaryKey" parameterType="com.tonto.hms.model.AcRole" >
     update role
     set role_name = #{roleName,jdbcType=VARCHAR},
       role_desc = #{roleDesc,jdbcType=VARCHAR},
+      status = #{status},
       permissions = #{permissions,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>

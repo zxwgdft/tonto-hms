@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -26,10 +27,10 @@ public class LoupanAction {
 		return new ModelAndView("loupan/loupan");
 	}
 	
-	@RequestMapping("/page/{pageNo}")
-	public ModelAndView getLoupanPage(@PathVariable("pageNo") int pageNo,@ModelAttribute("loupan")Loupan loupan)
+	@RequestMapping("/page/{pageNo}/{pageSize}")
+	public ModelAndView getLoupanPage(@PathVariable("pageNo") int pageNo,@PathVariable("pageSize") int pageSize,@ModelAttribute("loupan")Loupan loupan)
 	{
-		Page<Loupan> page=loupanService.searchLoupanByPage(pageNo,20,loupan);
+		Page<Loupan> page=loupanService.searchLoupanByPage(pageNo,pageSize>0?pageSize:20,loupan);
 		
 		ModelAndView model=new ModelAndView("loupan/loupanPage");
 		model.addObject("pager", page);
@@ -54,7 +55,7 @@ public class LoupanAction {
 		return "loupan/loupanSelect";
 	}
 	
-	@RequestMapping("/toAdd")
+	@RequestMapping(value="/add",method=RequestMethod.GET)
 	public String toAdd()
 	{
 		return "loupan/loupanAdd";
@@ -68,7 +69,7 @@ public class LoupanAction {
 		return JsonResponse.getSuccessResponse();
 	}
 	
-	@RequestMapping("/toUpdate/{id}")
+	@RequestMapping(value="/update/{id}",method=RequestMethod.GET)
 	public ModelAndView toUpdate(@PathVariable("id") int id)
 	{
 		Loupan loupan=loupanService.getLoupan(id);

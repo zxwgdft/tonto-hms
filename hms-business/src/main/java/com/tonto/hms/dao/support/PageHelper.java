@@ -178,8 +178,7 @@ public class PageHelper implements Interceptor {
                 totalCount = rs.getInt(1);
             }
             page.setTotal(totalCount);
-            int totalPage = totalCount / page.getPageSize() + ((totalCount % page.getPageSize() == 0) ? 0 : 1);
-            page.setPages(totalPage);
+           
         } catch (SQLException e) {
             logger.error("Ignore this exception", e);
         } finally {

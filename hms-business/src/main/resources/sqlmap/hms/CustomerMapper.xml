@@ -12,6 +12,14 @@
   <sql id="Base_Column_List" >
     id, customer_name, phone, cellphone, address, user_id
   </sql>
+  <select id="searchAll" resultMap="BaseResultMap" parameterType="com.tonto.hms.model.Customer">
+		select<include refid="Base_Column_List" />from customer WHERE 1=1
+		<if test="customerName != null">AND customer_name LIKE #{customerName}</if>		
+		<if test="phone != null">AND phone LIKE #{phone}</if>
+		<if test="cellphone != null">AND cellphone LIKE #{cellphone}</if>	
+		<if test="address != null">AND address LIKE #{address}</if>		
+		<if test="userId!= null">AND user_id =#{userId}</if>	
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -23,23 +31,24 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.tonto.hms.model.Customer" >
-    <selectKey resultType="java.lang.Integer" keyProperty="id" order="BEFORE" >
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into customer (id, customer_name, phone, 
+  <selectKey resultType="java.lang.Integer" keyProperty="id"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+    insert into customer (customer_name, phone, 
       cellphone, address, user_id
       )
-    values (#{id,jdbcType=INTEGER}, #{customerName,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+    values (#{customerName,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
       #{cellphone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.tonto.hms.model.Customer" >
-    <selectKey resultType="java.lang.Integer" keyProperty="id" order="BEFORE" >
-      SELECT LAST_INSERT_ID()
-    </selectKey>
+  <selectKey resultType="java.lang.Integer" keyProperty="id"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
     insert into customer
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      id,
       <if test="customerName != null" >
         customer_name,
       </if>
@@ -57,7 +66,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      #{id,jdbcType=INTEGER},
       <if test="customerName != null" >
         #{customerName,jdbcType=VARCHAR},
       </if>

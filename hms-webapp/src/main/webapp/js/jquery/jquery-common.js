@@ -149,7 +149,7 @@
 				data=null;
 			}
 			$.ajax({
-				type : "POST",
+				type : data?"POST":"GET",
 				url : url,
 				data : data,
 				beforeSend : function() {
@@ -443,7 +443,7 @@
 	// Modal
 	// --------------------------------------
 	
-	$.namespace2win('tonto.modal');
+	$.namespace2win('tonto.models');
 		
 	$.extend({
 		required:function(src,name,success){
@@ -454,17 +454,17 @@
 					success();
 			});
 		},
-		modal:function(n,m){
-			var modal=tonto.modal;					
+		model:function(n,m){
+			var model=tonto.models;					
 			if(m)
 			{
 				if("function" === typeof m)
-					return (modal[n]=m());
+					return (model[n]=m());
 				else
-					return (modal[n]=m);
+					return (model[n]=m);
 			}
 			else
-				return modal[n];
+				return model[n];
 		}
 	});
 	

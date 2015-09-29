@@ -13,11 +13,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.tonto.hms.dao.UserDao;
 import com.tonto.hms.model.User;
 import com.tonto.hms.service.UserSession;
+import com.tonto.hms.ums.permission.Role;
+import com.tonto.hms.ums.permission.action.PermissionManager;
 
 public class UserRealm extends AuthorizingRealm{
 	
 	@Autowired
 	UserDao userDao;
+	
+	@Autowired
+	PermissionManager permissionManager;
 	
 	
 	@Override
@@ -37,6 +42,11 @@ public class UserRealm extends AuthorizingRealm{
 				UserSession usersession=new UserSession();
 				usersession.setNickName(user.getNickName());
 				usersession.setUserName(user.getUserName());
+				
+				Integer roleId=user.getRoleId();
+				Role role=permissionManager.getRole(roleId);
+				usersession.setRole(role);
+				
 				return new SimpleAuthenticationInfo(usersession,user.getPassword(),getName());
 			}
 		}

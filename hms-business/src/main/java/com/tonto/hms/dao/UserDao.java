@@ -1,19 +1,8 @@
 package com.tonto.hms.dao;
 
+import com.tonto.hms.dao.base.BaseDao;
 import com.tonto.hms.model.User;
 
-public interface UserDao {
-    int deleteByPrimaryKey(Integer id);
-
-    int insert(User record);
-
-    int insertSelective(User record);
-
-    User selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(User record);
-
-    int updateByPrimaryKey(User record);
-	
+public interface UserDao extends BaseDao<Integer,User>{	
 	User getUser(String username);
 }

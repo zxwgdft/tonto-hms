@@ -30,6 +30,7 @@
 	</bean>
     
     <bean id="permissionFilter" class="com.tonto.hms.ums.filter.PermissionFilter">
+    	
 	</bean>
     
     <!-- 退出登录过滤器 -->
@@ -41,7 +42,7 @@
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
 		<property name="loginUrl" value="/login"/> 
-		<property name="successUrl" value="/success"/>   
+		<property name="successUrl" value="/main"/>   
         <property name="unauthorizedUrl" value="/login"/>
         <property name="filters">
 			<util:map>
@@ -57,6 +58,8 @@
 				/image/** = anon
 				/html/** = anon
 				/logout = logout
+				/login/**=authc
+				/main=authc
 				/** = authc,permission
 			</value>
 		</property>
