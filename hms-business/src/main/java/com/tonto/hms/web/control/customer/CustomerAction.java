@@ -19,6 +19,11 @@ public class CustomerAction {
 	@Autowired
 	CustomerService customerService;
 	
+	public ModelAndView dfs()
+	{
+		return new ModelAndView("customer/customer");
+	}
+	
 	@RequestMapping("/view")
 	public ModelAndView view()
 	{
