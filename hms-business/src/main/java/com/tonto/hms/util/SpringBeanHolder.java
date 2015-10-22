@@ -62,8 +62,7 @@ public class SpringBeanHolder implements ApplicationContextAware{
 	 * @param type
 	 * @return	如果异常或找不到则返回null
 	 */
-	@SuppressWarnings("rawtypes")
-	public static Map getBeansByType(Class<?> type)
+	public static Map<String,?> getBeansByType(Class<?> type)
 	{
 		try{
 			return appContext.getBeansOfType(type);
@@ -82,8 +81,7 @@ public class SpringBeanHolder implements ApplicationContextAware{
 	 * @param allowEagerInit		是否初始化lazy-init的bean
 	 * @return	如果异常或找不到则返回null
 	 */
-	@SuppressWarnings("rawtypes")
-	public static Map getBeansByType(Class<?> type, boolean includeNonSingletons,
+	public static Map<String,?> getBeansByType(Class<?> type, boolean includeNonSingletons,
             boolean allowEagerInit)
 	{
 		try{

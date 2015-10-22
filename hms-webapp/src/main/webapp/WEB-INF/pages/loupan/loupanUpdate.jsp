@@ -38,13 +38,13 @@
 </div>
 <script type="text/javascript">
 
-var loupan=$.modal("loupan");
+var loupan=$.model("loupan");
 loupan.updateDistrict = new tonto.district.District("#selectDistrictBtn");
 loupan.updateDistrict.toDistrict($("#updateDistrictCode").val());
 loupan.updateDistrict.addEventListener("checked", function(obj){
 	$("#updateDistrictCode").val(obj.key);
 });	
-$("#saveUpdateLoupanBtn").on("click",loupan.saveUpdateLoupan);
+$("#saveUpdateLoupanBtn").on("click",loupan.saveUpdate);
 $("#updateForm").createFormValidate({
 	messages:{
 		districtCode:{

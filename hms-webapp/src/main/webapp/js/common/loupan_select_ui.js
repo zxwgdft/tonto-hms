@@ -172,7 +172,6 @@
 				}
 		});
 	}
-	
-	
+		
 	tonto.loupan.Selector = tonto_loupan_Selector;
 })(jQuery);

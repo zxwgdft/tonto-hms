@@ -57,7 +57,7 @@
 </div>
 
 <script type="text/javascript">
-var house=$.modal("house");
+var house=$.model("house");
 house.loupanSelector=new tonto.loupan.Selector("#updateLoupanSelectorBtn");
 house.loupanSelector.addEventListener("checked",function(item){
 	$("#updateLoupanName").val(item.loupanName);
@@ -70,5 +70,5 @@ $("#updateForm").createFormValidate({
 		}
 	}
 }); 
-$("#saveUpdateHouseBtn").on("click",house.saveUpdateHouse);
+$("#saveUpdateHouseBtn").on("click",house.saveUpdate);
 </script>

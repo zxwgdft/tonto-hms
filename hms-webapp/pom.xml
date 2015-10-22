@@ -10,7 +10,7 @@
 	<groupId>hms-webapp</groupId>
 	<artifactId>hms-webapp</artifactId>
 	<packaging>war</packaging>
-<properties>
+	<properties>
     <m2eclipse.wtp.contextRoot>/hms</m2eclipse.wtp.contextRoot>
   </properties>
 	<build>
@@ -50,7 +50,5 @@
 			<artifactId>hms-business</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-
-
 	</dependencies>
 </project>

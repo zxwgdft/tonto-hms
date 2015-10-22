@@ -11,7 +11,7 @@ public class User {
 
     private Integer roleId;
     
-    private Role role;
+    private AcRole role;
 
 
 	public Integer getId() {
@@ -54,11 +54,11 @@ public class User {
         this.roleId = roleId;
     }
 
-	public Role getRole() {
+	public AcRole getRole() {
 		return role;
 	}
 
-	public void setRole(Role role) {
+	public void setRole(AcRole role) {
 		this.role = role;
 	}
 }

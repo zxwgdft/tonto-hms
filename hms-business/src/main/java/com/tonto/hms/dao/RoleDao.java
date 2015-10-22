@@ -1,17 +1,11 @@
 package com.tonto.hms.dao;
 
-import com.tonto.hms.model.Role;
+import java.util.List;
 
-public interface RoleDao {
-    int deleteByPrimaryKey(Integer id);
+import com.tonto.hms.dao.base.BaseDao;
+import com.tonto.hms.model.AcRole;
 
-    int insert(Role record);
+public interface RoleDao extends BaseDao<Integer,AcRole>{
 
-    int insertSelective(Role record);
-
-    Role selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(Role record);
-
-    int updateByPrimaryKey(Role record);
+	List<AcRole> findAll();
 }

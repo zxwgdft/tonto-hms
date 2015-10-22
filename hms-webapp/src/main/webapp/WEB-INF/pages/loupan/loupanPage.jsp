@@ -18,30 +18,21 @@
 				<td>${loupan.loupanName}</td>
 				<td>${loupan.fullDistrict}</td>
 				<td>${loupan.street}</td>
-				<td><a href="javascript:updateLoupan(${loupan.id})">修改</a> <a
+				<td><a href="javascript:loupan.update(${loupan.id})">修改</a> <a
 					style="margin-left:10px"
-					href="javascript:deleteLoupan(${loupan.id})">删除</a></td>
+					href="javascript:loupan.remove(${loupan.id})">删除</a></td>
 			</tr>
 		</c:forEach>
 	</tbody>
 </table>
 <div align="center" id="pager"></div>
 <script type="text/javascript">
-		var loupan=$.modal("loupan");
-		function updateLoupan(id){
-			loupan.updateLoupan(id);
-		}
-		function  deleteLoupan(id){
-			loupan.deleteLoupan(id);
-		}
-		function skip(page){
-			loupan.skip(page);
-		}
+		var loupan=$.model("loupan");
 	 	loupan.page_options = {
             	currentPage: ${pager.pageNum},
             	totalPages: ${pager.pages},
             	pageUrl: function(type, page, current){               
-            		return "javascript:skip("+page+")";
+            		return "javascript:loupan.skip("+page+")";
             	}
         }
 		$("#pager").bootstrapPaginator(loupan.page_options);

@@ -22,6 +22,7 @@ request.setAttribute("path", path);
 <script src="${path}/js/bootstrap/bootstrap.min.js"></script>
 <script src="${path}/js/bootstrap/bootstrap-paginator.min.js"></script>
 <script src="${path}/js/bootstrap/bootstrap-select.min.js"></script>
+<script src="${path}/js/common/model.js"></script>
 <script src="${path}/js/common/district.js"></script>
 <script src="${path}/js/common/district_ui.js"></script>
 <script src="${path}/js/common/loupan_select_ui.js"></script>
@@ -45,6 +46,7 @@ request.setAttribute("path", path);
 			<div class="list-group">
 				<a href="javascript:main_tab_function('house/view')" class="list-group-item">房源查看</a>
 				<a href="javascript:main_tab_function('loupan/view')" class="list-group-item">楼盘查看</a>
+				<a href="javascript:main_tab_function('customer/view')" class="list-group-item">客户查看</a>
 			</div>
 		</div>
 		<div class="col-md-10 well" id="mainContentDiv">

@@ -168,7 +168,7 @@
 			var m = (_self.currentDistrictList[0]
 					&& _self.currentDistrictList[0].parent && _self.currentDistrictList[0].parent.parent)
 					|| _self.config.map;
-			_self.show(null, m.children);
+			_self.showOption(null, m.children);
 		}
 	}
 

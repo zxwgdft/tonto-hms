@@ -1,19 +1,10 @@
 (function($) {
+	
+	// --------------------------------------
+	// base
+	// --------------------------------------
 
 	$.extend({
-		getRootPath : function() {
-			// 获取当前网址，如： http://localhost:8080/ems/Pages/Basic/Person.jsp
-			var curWwwPath = window.document.location.href;
-			// 获取主机地址之后的目录，如： /ems/Pages/Basic/Person.jsp
-			var pathName = window.document.location.pathname;
-			var pos = curWwwPath.indexOf(pathName);
-			// 获取主机地址，如： http://localhost:8080
-			var localhostPath = curWwwPath.substring(0, pos);
-			// 获取带"/"的项目名，如：/ems
-			var projectName = pathName.substring(0, pathName.substr(1).indexOf(
-					'/') + 1);
-			return (localhostPath + projectName);
-		},
 		namespace2fn : function(name, fun) {
 			if (name) {
 				$.fn[name] = fun ? fun : function() {
@@ -48,16 +39,107 @@
 			return typeof a ==="string"?JSON.parse(a):a;	
 		}
 	});
+	
+	// --------------------------------------
+	// constant
+	// --------------------------------------
 
-	$.fn.extend({
-				
-				
-			});
+	
+	$.namespace2win('tonto.constant');
+	$.extend(tonto.constant,{
+		response:{
+			status:{			
+				NO_LOGIN:-1,
+				NO_PERMISSION:-2,
+				SUCCESS:1,
+				FAIL:2,
+				ERROR:0
+			}				
+		}
+	});
+	
+	$.extend({
+		getRootPath : function() {
+			if(!tonto.constant.rootPath)
+			{
+				var curWwwPath = window.document.location.href;
+				var pathName = window.document.location.pathname;
+				var pos = curWwwPath.indexOf(pathName);
+				var localhostPath = curWwwPath.substring(0, pos);
+				var projectName = pathName.substring(0, pathName.substr(1).indexOf(
+						'/') + 1);
+				tonto.constant.rootPath=localhostPath + projectName;
+			}
+			return tonto.constant.rootPath;
+		}
+	});
 
 	// --------------------------------------
 	// ajax
 	// --------------------------------------
+	$.extend({
+		getRequest : function(url, fun) {
+			$.get(url, function(data) {
+					var jsonData=$.toJsonObject(data),s=jsonData.status;		
+					var status=tonto.constant.response.status;
+					
+					if(status.NO_LOGIN===s)
+					{
+						$.alertLogin(function(){
+							$.loadJsonContent(url, data, fun);						
+						});
+					}
+					else if(status.NO_PERMISSION===s)
+					{
+						$.alertInfo(jsonData.message||"您没有权限访问该页面或执行该操作");
+					}
+					else if(status.ERROR===s)
+					{
+						$.alertError(jsonData.message||"访问页面或执行操作错误");
+					}
+					else
+					{
+						if (fun)
+							fun(jsonData);
+					}
+				});
+		},
+		postRequest : function(url, data, fun) {
+			$.ajax({
+				type : "POST",
+				url : url,
+				data : data,
+				success : function(data) {
+					var jsonData=$.toJsonObject(data),s=jsonData.status;		
+					var status=tonto.constant.response.status;
+					
+					if(status.NO_LOGIN===s)
+					{
+						$.alertLogin(function(){
+							$.loadJsonContent(url, data, fun);						
+						});
+					}
+					else if(status.NO_PERMISSION===s)
+					{
+						$.alertInfo(jsonData.message||"您没有权限访问该页面或执行该操作");
+					}
+					else if(status.ERROR===s)
+					{
+						$.alertError(jsonData.message||"访问页面或执行操作错误");
+					}
+					else
+					{
+						if (fun)
+							fun(jsonData);
+					}
+				},
+				error : function() {
+					$content.html("加载数据错误！");
+				}
 
+			});
+		}
+	});
 	$.fn.extend({
 		loadContent : function(url, data, fun) {
 			var $content = this;
@@ -67,20 +149,33 @@
 				data=null;
 			}
 			$.ajax({
-				type : "POST",
+				type : data?"POST":"GET",
 				url : url,
 				data : data,
 				beforeSend : function() {
 					$content.appendLoading();
 				},
-				success : function(data) {
+				success : function(data) {	
 					try{						
-						var json=typeof data ==="string"?JSON.parse(data):data,status=json.status;
-						if(status==0)
+						var json=typeof data ==="string"?JSON.parse(data):data,s=json.status;
+						
+						var status=tonto.constant.response.status;
+						
+						$content.html("");
+						
+						if(status.NO_LOGIN===s)
 						{
 							$.alertLogin(function(){
 								$content.loadContent(url, data, fun);						
 							});
+						}
+						else if(status.NO_PERMISSION===s)
+						{
+							$.alertInfo(json.message||"您没有权限访问该页面或执行该操作");
+						}
+						else if(status.ERROR===s)
+						{
+							$.alertError(json.message||"访问页面或执行操作错误");
 						}
 						else
 						{
@@ -95,13 +190,13 @@
 					}	
 				},
 				error : function() {
-					$content.html("加载数据错误！");
+					$content.html("<div class='load-data-error'>加载数据错误！</div>");
 				}
 
 			});
 		},
 		loadJsonContent : function(url, data, fun) {
-			var $content = this,fun=arguments.callee;		
+			var $content=$(this);
 			$.ajax({
 				type : "POST",
 				url : url,
@@ -110,50 +205,74 @@
 					$content.appendLoading();
 				},
 				success : function(data) {
-					var jsonData=$.toJsonObject(data),status=jsonData.status;
-					$content.empty();
-					if(status==0)
+					var jsonData=$.toJsonObject(data),s=jsonData.status;		
+					var status=tonto.constant.response.status;
+					
+					$content.html("");
+					
+					if(status.NO_LOGIN===s)
 					{
 						$.alertLogin(function(){
 							$content.loadJsonContent(url, data, fun);						
 						});
 					}
-					
-					if (fun)
+					else if(status.NO_PERMISSION===s)
+					{
+						$.alertInfo(jsonData.message||"您没有权限访问该页面或执行该操作");
+					}
+					else if(status.ERROR===s)
+					{
+						$.alertError(jsonData.message||"访问页面或执行操作错误");
+					}
+					else
+					{
 						fun(jsonData);
+					}
 				},
 				error : function() {
-					$content.html("加载数据错误！");
+					$content.html("<div class='load-data-error'>加载数据错误！</div>");
 				}
 
 			});
 		},
-		formAjaxSubmit:function(successFun,errorFun){
+		formAjaxSubmit:function(successFun,failFun){
 			var $form=$(this),fun=arguments.callee;
 			$form.ajaxSubmit({
 				beforeSubmit:function(){
 					return $form.valid?$form.valid():true;
 				},	
 				success:function(response){
-					response = $.toJsonObject(response);
-					var s=response.status;
-					if(s==1){
-						successFun(response);				
-						return;
-					}
-					else if(s==0)
+					var json = $.toJsonObject(response),s=json.status,status=tonto.constant.response.status;
+					
+					if(status.NO_LOGIN===s)
 					{
-						
 						$.alertLogin(function(){
-							$form.formAjaxSubmit(successFun,errorFun);						
+							$form.formAjaxSubmit(successFun,failFun);						
 						});
 					}
-					else
+					else if(status.NO_PERMISSION===s)
 					{
-						if(errorFun)
+						$.alertInfo(json.message||"您没有权限访问该页面或执行该操作");
+					}
+					else if(status.ERROR===s)
+					{
+						$.alertError(json.message||"访问页面或执行操作错误");
+					}
+					else if(status.FAIL===s)
+					{
+						if(failFun)
 						{
-							errorFun(response);
+							failFun(json);
+						}							
+						else
+						{
+							$.alertError(json.message||"操作失败");
 						}
+					}
+					else if(status.SUCCESS===s)
+					{
+						if(successFun)
+							successFun(json);		
 					}
 				}
 			});			
@@ -324,7 +443,7 @@
 	// Modal
 	// --------------------------------------
 	
-	$.namespace2win('tonto.modal');
+	$.namespace2win('tonto.models');
 		
 	$.extend({
 		required:function(src,name,success){
@@ -335,17 +454,17 @@
 					success();
 			});
 		},
-		modal:function(n,m){
-			var modal=tonto.modal;					
+		model:function(n,m){
+			var model=tonto.models;					
 			if(m)
 			{
 				if("function" === typeof m)
-					return (modal[n]=m());
+					return (model[n]=m());
 				else
-					return (modal[n]=m);
+					return (model[n]=m);
 			}
 			else
-				return modal[n];
+				return model[n];
 		}
 	});
 	

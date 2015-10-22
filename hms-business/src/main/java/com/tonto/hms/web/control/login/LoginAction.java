@@ -61,7 +61,7 @@ public class LoginAction {
 		
 	}
 	
-	@RequestMapping("/success")
+	@RequestMapping("/main")
 	public ModelAndView toMain()
 	{
 		Subject subject=SecurityUtils.getSubject();

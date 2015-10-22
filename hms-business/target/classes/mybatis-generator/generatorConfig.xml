@@ -14,7 +14,7 @@
         </commentGenerator>
         <!-- 控制数据库 -->
         <jdbcConnection driverClass="org.gjt.mm.mysql.Driver"
-            connectionURL="jdbc:mysql://127.0.0.1:3306/hms?characterEncoding=utf8"
+            connectionURL="jdbc:mysql://127.0.0.1:3306/moneyshop?characterEncoding=utf8"
             userId="root" password="" />
 
         <javaTypeResolver>
@@ -28,18 +28,18 @@
             <property name="trimStrings" value="true" />
         </javaModelGenerator>
         <!-- 控制Model的xmlMapper文件 -->
-        <sqlMapGenerator targetPackage="sqlmap"
+        <sqlMapGenerator targetPackage="temporary"
             targetProject="src/main/resources/">
             <property name="enableSubPackages" value="true" />
         </sqlMapGenerator>
         <!-- 控制mapper接口 -->
-        <javaClientGenerator targetPackage="com.tonto.hms.dao"
+        <javaClientGenerator targetPackage="temporary"
             type="XMLMAPPER" targetProject="src/main/java/">
             <property name="enableSubPackages" value="true" />
             <property name="methodNameCalculator" value="extended" />
         </javaClientGenerator>
         <!-- schema你的数据库，tableName表明，domainObjectName对应你的javabean类名，是否生成相应的example -->
-        <table schema="hms" tableName="%"
+        <table schema="moneyshop" tableName="%"
             enableCountByExample="false" enableUpdateByExample="false"
             enableDeleteByExample="false" enableSelectByExample="false"
             selectByExampleQueryId="false">

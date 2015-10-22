@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -28,10 +29,10 @@ public class HouseAction {
 	}
 	
 	
-	@RequestMapping("/page/{pageNo}")
-	public ModelAndView getHousePage(@PathVariable("pageNo") int pageNo,@ModelAttribute("houseDetail")HouseDetail houseDetail)
+	@RequestMapping("/page/{pageNo}/{pageSize}")
+	public ModelAndView getHousePage(@PathVariable("pageNo") int pageNo,@PathVariable("pageSize") int pageSize,@ModelAttribute("houseDetail")HouseDetail houseDetail)
 	{
-		Page<HouseDetail> page=houseService.searchHouseByPage(pageNo,20,houseDetail);
+		Page<HouseDetail> page=houseService.searchHouseByPage(pageNo,pageSize>0?pageSize:20,houseDetail);
 		
 		ModelAndView model=new ModelAndView("house/housePage");
 		model.addObject("pager", page);
@@ -40,7 +41,7 @@ public class HouseAction {
 	}
 	
 	
-	@RequestMapping("/toAdd")
+	@RequestMapping(value="/add",method=RequestMethod.GET)
 	public String toAdd()
 	{
 		return "house/houseAdd";
@@ -54,7 +55,7 @@ public class HouseAction {
 		return JsonResponse.getSuccessResponse();
 	}
 	
-	@RequestMapping("/toUpdate/{id}")
+	@RequestMapping(value="/update/{id}",method=RequestMethod.GET)
 	public ModelAndView toUpdate(@PathVariable("id") int id)
 	{
 		House house=houseService.getHouse(id);

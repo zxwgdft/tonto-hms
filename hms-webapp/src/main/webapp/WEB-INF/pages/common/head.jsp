@@ -11,6 +11,7 @@
 <script src="${path}/js/jquery/jquery.validate.min.js"></script>
 <script src="${path}/js/jquery/jquery-validate-extend.js"></script>
 <script src="${path}/js/jquery/jquery-common.js"></script>
+<script src="${path}/js/common/model.js"></script>
 <script src="${path}/js/bootstrap/bootstrap.min.js"></script>
 <script src="${path}/js/bootstrap/bootstrap-paginator.min.js"></script>
 <script src="${path}/js/bootstrap/bootstrap-select.min.js"></script>
