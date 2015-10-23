@@ -25,11 +25,6 @@ public class CustomerAction {
 		return new ModelAndView("customer/customer");
 	}
 	
-	public ModelAndView aaa()
-	{
-		return new ModelAndView("customer/customer");
-	}
-	
 	@RequestMapping("/page/{pageNo}/{pageSize}")
 	public ModelAndView getHousePage(@PathVariable("pageNo") int pageNo,@PathVariable("pageSize") int pageSize,@ModelAttribute("customer")Customer customer)
 	{
