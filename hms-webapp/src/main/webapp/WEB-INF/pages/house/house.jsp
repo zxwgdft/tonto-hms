@@ -17,7 +17,6 @@
 				<div id="searchLoupanDiv" style="display:none" class="col-md-5 btn-group">
 					<button type="button" class="btn btn-info btn-select" id="selectLoupanToSearchBtn">全部<span class="caret"></span></button>	        						
 				</div>
-				
 				<div class="col-md-2">
 					<button class="btn btn-block btn-primary btn-md" type="button" id="searchHouseBtn">
 						<span class="glyphicon glyphicon-search"></span> 查询

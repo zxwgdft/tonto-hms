@@ -7,9 +7,6 @@
         <dependent-module archiveName="hms-business-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/hms-business/hms-business">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="hms-base-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/hms-base/hms-base">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <property name="java-output-path" value="/hms-webapp/src/main/webapp/src/main/java"/>
         <property name="context-root" value="//hms"/>
     </wb-module>
