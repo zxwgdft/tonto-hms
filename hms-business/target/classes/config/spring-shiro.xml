@@ -57,9 +57,10 @@
 				/css/** = anon
 				/image/** = anon
 				/html/** = anon
+				/im/**=anon
 				/logout = logout
 				/login/**=authc
-				/main=authc
+				/main=authc				
 				/** = authc,permission
 			</value>
 		</property>
