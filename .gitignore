@@ -18,10 +18,10 @@ hs_err_pid*
 .classpath
 .mymetadata
 .project
-
-hms-webapp/target/
-hms-webapp/target
-hms-base/target/
-hms-base/target
-hms-business/target/
-hms-business/target
+pom.properties
+/hms-webapp/target/
+/hms-webapp/target
+/hms-base/target/
+/hms-base/target
+/hms-business/target/
+/hms-business/target
