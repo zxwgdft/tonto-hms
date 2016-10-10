@@ -10,9 +10,18 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
-hms-webapp/.settings/org.eclipse.wst.common.component
-*.properties
-hms-webapp/target/m2e-jee/web-resources/META-INF/maven/hms-webapp/hms-webapp/pom.properties
-hms-webapp/target/m2e-jee/web-resources/META-INF/maven/hms-webapp/hms-webapp/pom.properties
-hms-webapp/.settings/org.eclipse.wst.common.component
-hms-webapp/target/m2e-jee/web-resources/META-INF/maven/hms-webapp/hms-webapp/pom.properties
+.springBeans
+.settings/
+*.iml
+.idea/
+.externalToolBuilders/
+.classpath
+.mymetadata
+.project
+
+hms-webapp/target/
+hms-webapp/target
+hms-base/target/
+hms-base/target
+hms-business/target/
+hms-business/target
