@@ -19,9 +19,9 @@ hs_err_pid*
 .mymetadata
 .project
 pom.properties
-/hms-webapp/target/
+/hms-webapp/target/*
 /hms-webapp/target
-/hms-base/target/
+/hms-base/target/*
 /hms-base/target
-/hms-business/target/
+/hms-business/target/*
 /hms-business/target
