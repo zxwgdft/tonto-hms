@@ -4,10 +4,10 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.StringEntity;
 
-import com.tonto.common.im.IMConstants;
-import com.tonto.common.im.IMServletContainer;
-import com.tonto.common.im.IMTokenHelper;
-import com.tonto.common.im.request.AbstrctIMRequest;
+import com.tonto2.common.im.IMConstants;
+import com.tonto2.common.im.IMServletContainer;
+import com.tonto2.common.im.IMTokenHelper;
+import com.tonto2.common.im.request.AbstrctIMRequest;
 
 
 /**

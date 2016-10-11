@@ -2,9 +2,9 @@ package com.tonto.hms.im;
 
 import org.apache.log4j.Logger;
 
-import com.tonto.common.im.IMServletContainer;
-import com.tonto.common.im.exception.IMException;
-import com.tonto.common.im.request.IMRequest;
+import com.tonto2.common.im.IMServletContainer;
+import com.tonto2.common.im.exception.IMException;
+import com.tonto2.common.im.request.IMRequest;
 
 /**
  * 

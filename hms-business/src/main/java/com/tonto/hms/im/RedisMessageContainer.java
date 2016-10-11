@@ -9,9 +9,9 @@ import redis.clients.jedis.JedisCommands;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tonto.common.im.IMServletContainer;
-import com.tonto.common.im.exception.IMException;
-import com.tonto.common.im.request.message.Message;
+import com.tonto2.common.im.IMServletContainer;
+import com.tonto2.common.im.exception.IMException;
+import com.tonto2.common.im.request.message.Message;
 import com.tonto.hms.common.container.Container;
 import com.tonto.redis.JedisContainer;
 
